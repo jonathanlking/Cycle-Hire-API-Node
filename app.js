@@ -251,8 +251,9 @@ function nearestStations(latitude, longitude, callback, number)
 			var station = data.stations.station[i];
 			var id = station.id[0];
 			var distance = distanceFromStation(latitude, longitude, station);
+			
 
-			var object = {stationId : id, distance : distance};
+			var object = {stationId : id, distance : distance, latitude : station.lat[0], longitude : station.long[0], name : station.name[0]};
 			distanceArray.push(object);
 		}
 
@@ -283,7 +284,7 @@ function nearestStationsWithAvailableBikes(latitude, longitude, callback, number
 
 			var distance = distanceFromStation(latitude, longitude, data.stations.station[i]);
 
-			var object = {stationId : id, distance : distance};
+			var object = {stationId : id, distance : distance, latitude : station.lat[0], longitude : station.long[0], name : station.name[0]};
 			distanceArray.push(object);
 		}
 
@@ -314,7 +315,7 @@ function nearestStationsWithAvailableDocks(latitude, longitude, callback, number
 
 			var distance = distanceFromStation(latitude, longitude, data.stations.station[i]);
 
-			var object = {stationId : id, distance : distance};
+			var object = {stationId : id, distance : distance, latitude : station.lat[0], longitude : station.long[0], name : station.name[0]};
 			distanceArray.push(object);
 		}
 
