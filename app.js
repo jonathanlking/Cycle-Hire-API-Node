@@ -230,7 +230,7 @@ app.get('/station/docks', function(request, responce)
 app.get('/', function(request, responce)
 {
 	formattedLastRefreshDate (function(formattedDate){
-		responce.send('Please use a supported endpoint. </br></br> Documentation can be found at http://github.com/jonathanlking/YRS-Bike/blob/master/TFL.md </br></br>'+'Data last refreshed: ' + formattedDate);	
+		responce.send('Please use a supported endpoint. </br></br> Documentation can be found at <a href="http://github.com/jonathanlking/YRS-Bike/blob/master/TFL.md">github.com/jonathanlking/YRS-Bike/blob/master/TFL.md</a> </br></br>'+'Data last refreshed: ' + formattedDate);	
 	});
 	
 });
@@ -253,7 +253,7 @@ function nearestStations(latitude, longitude, callback, number)
 			var distance = distanceFromStation(latitude, longitude, station);
 			
 
-			var object = {stationId : id, distance : distance, latitude : station.lat[0], longitude : station.long[0], name : station.name[0]};
+			var object = {stationId : id, distance : distance, latitude : station.lat[0], longitude : station.long[0], name : station.name[0], bikes : station.nbBikes[0], emptyDocks : station.nbEmptyDocks[0], docks : station.nbDocks[0]};
 			distanceArray.push(object);
 		}
 
@@ -284,7 +284,7 @@ function nearestStationsWithAvailableBikes(latitude, longitude, callback, number
 
 			var distance = distanceFromStation(latitude, longitude, data.stations.station[i]);
 
-			var object = {stationId : id, distance : distance, latitude : station.lat[0], longitude : station.long[0], name : station.name[0]};
+			var object = {stationId : id, distance : distance, latitude : station.lat[0], longitude : station.long[0], name : station.name[0], bikes : station.nbBikes[0], emptyDocks : station.nbEmptyDocks[0], docks : station.nbDocks[0]};
 			distanceArray.push(object);
 		}
 
@@ -315,7 +315,7 @@ function nearestStationsWithAvailableDocks(latitude, longitude, callback, number
 
 			var distance = distanceFromStation(latitude, longitude, data.stations.station[i]);
 
-			var object = {stationId : id, distance : distance, latitude : station.lat[0], longitude : station.long[0], name : station.name[0]};
+			var object = {stationId : id, distance : distance, latitude : station.lat[0], longitude : station.long[0], name : station.name[0], bikes : station.nbBikes[0], emptyDocks : station.nbEmptyDocks[0], docks : station.nbDocks[0]};
 			distanceArray.push(object);
 		}
 
