@@ -1,0 +1,18 @@
+{
+	"name": "Cycle-Hire-API",
+	"version": "0.9.1",
+	"description": "A node.js application that supports basic requests for the TFL cycle hire scheme, using the XML data provided by TFL.",
+	"author": "Jonathan King <jonathanlking@me.com>",
+	"license": "MIT",
+	"private": true,
+	"scripts" : {
+		"start": "node app"
+	},
+	"dependencies": {
+		"request": "~2.42.0",
+		"async": "~0.9.0",
+		"express": "~4.9.0",
+		"xml2js": "~0.4.4.0"
+	},
+
+}
