@@ -3,27 +3,30 @@ var request = require('request');
 var fileStream = require('fs');
 var parseString = require('xml2js').parseString;
 
+var error = 400;
+
 function degreesToRadians(degrees)
 {
 	return degrees * (Math.PI / 180)
 }
 
-/*----------Endpoints----------*/
+/*----------Start the server----------*/
 
 var express = require('express');
 var app = express();
 
 var server = app.listen(3000, function()
 {
+	console.log('Server running.');
 	console.log('Listening on port %d', server.address().port);
 	// Start the XML caching process
 	cacheXML();
 });
 
+// Refresh the XML data and set it to be refreshed a minutes time
+cacheXML();
 
-var error = 400;
-
-console.log('Server running.');
+/*----------Endpoints----------*/
 
 app.get('/nearest/stations', function(request, responce)
 {
@@ -230,7 +233,7 @@ app.get('/station/docks', function(request, responce)
 app.get('/', function(request, responce)
 {
 	formattedLastRefreshDate (function(formattedDate){
-		responce.send('Please use a supported endpoint. </br></br> Documentation can be found at <a href="http://github.com/jonathanlking/YRS-Bike/blob/master/TFL.md">github.com/jonathanlking/YRS-Bike/blob/master/TFL.md</a> </br></br>'+'Data last refreshed: ' + formattedDate);	
+		responce.send('Please use a supported endpoint. </br></br> Documentation can be found on <a href="http://github.com/jonathanlking/Cycle-Hire-API">the project Github page</a>. </br></br>'+'Live data from TFL last refreshed: ' + formattedDate);	
 	});
 	
 });
@@ -517,6 +520,7 @@ function cacheXML()
 
 		}
 	});
-
-	setTimeout(cacheXML, 1000 * 3 * 60);
+	
+	// Run again in a minutes time
+	setTimeout(cacheXML, 1000 * 1 * 60);
 }
