@@ -25,6 +25,19 @@ var server = app.listen(3000, function()
 
 /*----------Endpoints----------*/
 
+// Set the content type as JSON for all get requests
+app.get('/*', function(request, responce, next) 
+{
+  responce.contentType('application/json');
+  next();
+});
+app.get('/json', function(request, responce)
+{
+	cycleData(function(data)
+	{
+		responce.send(JSON.stringify(data));
+	});
+});
 app.get('/nearest/stations', function(request, responce)
 {
 
@@ -493,7 +506,7 @@ function cycleData(callback)
 					loadedData = result;
 					
 					// The array of 'raw' stations
-					var _stations = loadedData.stations.station;
+					var _stations = result.stations.station;
 					// The array of formatted stations
 					var stations = [];
 					for (var i = 0; i < _stations.length; i++)
@@ -520,9 +533,8 @@ function cycleData(callback)
 						stations.push(station);
 					}
 					
-					var lastUpdate = loadedData.stations.$.lastUpdate
-					var data = {lastUpdate : lastUpdate, stations : stations};
-					console.log(data);
+					var lastUpdate = parseInt(result.stations.$.lastUpdate);
+					var loadedData = {lastUpdate : lastUpdate, stations : stations};
 					callback(loadedData);
 				});
 			}
