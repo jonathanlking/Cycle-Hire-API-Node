@@ -3,7 +3,7 @@ TFL Cycle Hire API
 
 ###What it Does
 
-A node.js application that supports basic requests for the TFL cycle hire scheme, using the XML data provided by TFL. An asynchronous resquest is made every minute for the latest data, which is then cached.
+A node.js application that supports basic requests for the TFL cycle hire scheme, using the XML data provided by TFL. An asynchronous request is made every minute for the latest data, which is then cached.
 
 Coordinates should be given in WGS84 decimal form.
 
@@ -44,7 +44,7 @@ All distances calculated are 'as the crow flies' and are in m (to nearest metre)
 
 `nbBikes` - Total number of available bikes at a docking station, excluding any locked/faulty bikes that cannot be rented.
 
-`nbEmptyDocks` - Total number of available docking points at a docking station. A bike dock is empty when no bike is docked in it. It excludes any defective bike docks, ie those that do not allow a bike to be docked in.
+`nbEmptyDocks` - Total number of available docking points at a docking station. A bike dock is empty when no bike is docked in it. It excludes any defective bike docks, i.e. those that do not allow a bike to be docked in.
 
 `nbDocks` - Total number of docking points at a docking station.
 
@@ -161,7 +161,7 @@ e.g. `/station/?id=88`
 
 e.g. `/station/bikes/?id=88`
 
-**Returns number of avaiblable bikes**
+**Returns number of available bikes**
 
 ---------------------------------------------
 
@@ -175,6 +175,6 @@ e.g. `/station/bikes/?id=88`
 
 e.g. `/station/docks/?id=88`
 
-**Returns number of avaiblable docks**
+**Returns number of available docks**
 
 
