@@ -249,13 +249,46 @@ function nearestStations(latitude, longitude, callback, number)
 		{
 			// Iterate through all the stations
 			var station = data.stations.station[i];
-			var id = station.id[0];
-			var distance = distanceFromStation(latitude, longitude, station);
+			station.distance = distanceFromStation(latitude, longitude, station);
 			
-
-			var object = {stationId : id, distance : distance, latitude : station.lat[0], longitude : station.long[0], name : station.name[0], bikes : station.nbBikes[0], emptyDocks : station.nbEmptyDocks[0], docks : station.nbDocks[0]};
-			distanceArray.push(object);
+			
+			
+			
+			var json = JSON.stringify(station);
+			console.log(json);
+			var _station = JSON.parse(json);
+			
+			
+			// Remove the annoying array nonsense!
+			for (var property in _station) 
+			{
+			    if (_station[property].length > 0) _station[property] = _station[property][0];
+			}
+			
+			console.log(_station);
+			
+			distanceArray.push(_station);
+			
+/*
+			console.log(_station);
+			console.log("\n\n______________");
+			console.log(station);
+			console.log("\n\n______________");
+*/
+			
+/* 			distanceArray.push(station); */
 		}
+		
+/*
+		for (var station in distanceArray) 
+		{
+			for (var property in station) 
+			{
+				station[property] = station[property][0];
+				console.log("sd");	
+			}	
+		}
+*/
 
 		var sorted = distanceArray.sort(compareDistancesOfStations);
 		if (number) callback(sorted.slice(0, number));
@@ -263,6 +296,18 @@ function nearestStations(latitude, longitude, callback, number)
 
 	});
 }
+
+/*
+function formatStation(station) 
+{	
+	var formattedStation = new Object;
+	for (var property in station) 
+	{
+	    if (station.hasOwnProperty(property)) formattedStation[property] = station[property][0];
+	}
+	return formattedStation;
+}
+*/
 
 function nearestStationsWithAvailableBikes(latitude, longitude, callback, number)
 {
