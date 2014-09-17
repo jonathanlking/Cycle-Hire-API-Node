@@ -92,58 +92,6 @@ app.get('/nearest/docks', function(request, responce)
 	}
 });
 
-app.get('/distance/station', function(request, responce)
-{
-
-	var latitude = request.param("latitude");
-	var longitude = request.param("longitude");
-
-	if (!latitude || !longitude) responce.send(error);
-
-	else
-	{
-		distanceToNearestStation(latitude, longitude, function(distance)
-		{
-			// Must be sent as 'string' otherwise it assumes it to be a HTTP responce code.
-			responce.send(String(distance));
-		}, null);
-	}
-});
-app.get('/distance/bike', function(request, responce)
-{
-
-	var latitude = request.param("latitude");
-	var longitude = request.param("longitude");
-
-	if (!latitude || !longitude) responce.send(error);
-
-	else
-	{
-		distanceToNearestAvailableBike(latitude, longitude, function(distance)
-		{
-			// Must be sent as 'string' otherwise it assumes it to be a HTTP responce code.
-			responce.send(String(distance));
-		}, null);
-	}
-});
-app.get('/distance/dock', function(request, responce)
-{
-
-	var latitude = request.param("latitude");
-	var longitude = request.param("longitude");
-
-	if (!latitude || !longitude) responce.send(error);
-
-	else
-	{
-		distanceToNearestAvailableDock(latitude, longitude, function(distance)
-		{
-			// Must be sent as 'string' otherwise it assumes it to be a HTTP responce code.
-			responce.send(String(distance));
-		}, null);
-	}
-});
-
 app.get('/stations/within', function(request, responce)
 {
 
@@ -319,30 +267,6 @@ function nearestStationsWithAvailableDocks(latitude, longitude, callback, number
 		else callback(sorted);
 
 	});
-}
-
-function distanceToNearestStation(latitude, longitude, callback, filterFunction)
-{
-	// The callback will receive the distance in metres 
-	if (!filterFunction) filterFunction = nearestStations;
-
-	filterFunction(latitude, longitude, function(stations)
-	{
-		var distance = stations[0]['distance'];
-		callback(parseInt(distance));
-	});
-}
-
-function distanceToNearestAvailableBike(latitude, longitude, callback)
-{
-	// The callback will receive the distance in metres to the nearest dock where there is a bike available
-	distanceToNearestStation(latitude, longitude, callback, nearestStationsWithAvailableBikes);
-}
-
-function distanceToNearestAvailableDock(latitude, longitude, callback)
-{
-	// The callback will receive the distance in metres to the nearest dock where there is a bike available
-	distanceToNearestStation(latitude, longitude, callback, nearestStationsWithAvailableDocks);
 }
 
 function stationsWithinDistance(latitude, longitude, metres, callback, filterFunction)

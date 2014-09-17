@@ -81,34 +81,6 @@ e.g. `/nearest/stations/?latitude=51.535630782&longitude=-0.155715844&number=10`
 
 =============================================
 
-####Distance to nearest station
-
-`/distance/station/?`
-
-**Parameters**
-
-`latitude`  
-`longitude`   
-
-e.g. `/distance/station/?latitude=51.535630782&longitude=-0.155715844`
-
-**Returns distance**
-
----------------------------------------------
-
-#####Distance to nearest *available* **bike**
-
-`/distance/bike/?`
-
----------------------------------------------
-
-#####Distance to nearest *available* **docks**
-
-`/distance/dock/?`
-
-=============================================
-
-
 ####Stations within ... metres
 
 `/stations/within/?`
