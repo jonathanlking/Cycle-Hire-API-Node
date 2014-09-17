@@ -13,7 +13,7 @@ All distances calculated are 'as the crow flies' and are in m (to nearest metre)
 
 ##Station Object
 
-=============================================
+---------------------------------------------
 
 **The station object has the following structure, which is the same as used by TFL in their API. Their complete documentation is included and called "bch-feed-data-dictionary.pdf".**
 
@@ -51,7 +51,7 @@ All distances calculated are 'as the crow flies' and are in m (to nearest metre)
 
 ##Functionality
 
-=============================================
+---------------------------------------------
 
 ####Nearest stations
 
