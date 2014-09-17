@@ -281,7 +281,7 @@ function formattedLastRefreshDate (callback) {
 	
 	cycleData(function(data) {
 		
-		var epoch = data.stations.$.lastUpdate;
+		var epoch = data.lastUpdate;
 		var date = new Date(parseInt(epoch));
 		callback(date.toUTCString());
 	});
@@ -317,12 +317,8 @@ function stationForId(id, callback)
 
 function compareDistancesOfStations(a, b)
 {
-	// Get the key id for a and then find the associated value, the distance.
-	distance_a = a['distance'];
-	distance_b = b['distance'];
-
-	if (distance_a < distance_b) return -1;
-	if (distance_a > distance_b) return 1;
+	if (a.distance < b.distance) return -1;
+	if (a.distance > b.distance) return 1;
 	return 0;
 }
 

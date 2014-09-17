@@ -1,7 +1,5 @@
 TFL Cycle Hire API
-========================================
-
-###What it Does
+==================
 
 A node.js application that supports basic requests for the TFL cycle hire scheme, using the XML data provided by TFL. An asynchronous request is made every minute for the latest data, which is then cached.
 
@@ -12,8 +10,6 @@ All dates are milliseconds elapsed since 01 Jan 1970 (Unix Epoch time stamp).
 All distances calculated are 'as the crow flies' and are in m (to nearest metre).
 
 ##Station Object
-
----------------------------------------------
 
 **The station object has the following structure, which is the same as used by TFL in their API. Their complete documentation is included and called "bch-feed-data-dictionary.pdf".**
 
@@ -51,8 +47,6 @@ All distances calculated are 'as the crow flies' and are in m (to nearest metre)
 
 ##Functionality
 
----------------------------------------------
-
 ####Nearest stations
 
 `/nearest/bikes/?`
@@ -67,19 +61,15 @@ e.g. `/nearest/stations/?latitude=51.535630782&longitude=-0.155715844&number=10`
 
 **Returns array of station objects**
 
----------------------------------------------
-
 #####Nearest stations with *available* **docks**
 
 `/nearest/bikes/?`
-
----------------------------------------------
 
 #####Nearest stations with *available* **bikes**
 
 `/nearest/docks/?`
 
-=============================================
+---------------------------------------------
 
 ####Stations within ... metres
 
@@ -95,19 +85,15 @@ e.g. `/stations/within/?latitude=51.535630782&longitude=-0.155715844&distance=50
 	
 **Returns array of station objects**
 
----------------------------------------------
-
 #####Stations with *available* **docks** within ... metres
 
 `/bikes/within/?`
-
----------------------------------------------
 
 #####Stations with *available* **bikes** within ... metres
 	
 `/docks/within/?`
 
-=============================================
+---------------------------------------------
 
 ####Station with ID
 
@@ -121,6 +107,7 @@ e.g. `/station/?id=88`
 
 **Returns station object**
 
-=============================================
+---------------------------------------------
+
 
 
