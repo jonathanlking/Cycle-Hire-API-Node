@@ -123,30 +123,4 @@ e.g. `/station/?id=88`
 
 =============================================
 
-####Bikes available for station.
-
-`/station/bikes/?`
-
-**Parameters**
-
-`id` - Corresponding TFL station ID.  
-
-e.g. `/station/bikes/?id=88`
-
-**Returns number of available bikes**
-
----------------------------------------------
-
-####Docks available for station.
-
-`/station/docks/?`
-
-**Parameters**
-
-`id` - Corresponding TFL station ID.  
-
-e.g. `/station/docks/?id=88`
-
-**Returns number of available docks**
-
 

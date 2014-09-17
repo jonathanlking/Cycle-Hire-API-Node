@@ -160,34 +160,6 @@ app.get('/station', function(request, responce)
 		});
 	}
 });
-app.get('/station/bikes', function(request, responce)
-{
-
-	var stationId = request.param("id");
-	if (!stationId) responce.send(error);
-
-	else
-	{
-		bikesAvailableAtStation(stationId, function(station)
-		{
-			responce.send(String(station));
-		});
-	}
-});
-app.get('/station/docks', function(request, responce)
-{
-
-	var stationId = request.param("id");
-	if (!stationId) responce.send(error);
-
-	else
-	{
-		docksAvailableAtStation(stationId, function(station)
-		{
-			responce.send(String(station));
-		});
-	}
-});
 
 // Show link to Github project on landing page
 app.get('/', function(request, responce)
@@ -302,25 +274,6 @@ function stationsWithinDistanceWithAvailableDocks(latitude, longitude, metres, c
 	stationsWithinDistance(latitude, longitude, metres, callback, nearestStationsWithAvailableDocks);
 }
 
-function docksAvailableAtStation(id, callback)
-{
-	// The callback receives the number of docks available for a station id
-	stationForId(id, function(station)
-	{
-		var docks = parseInt(station.nbEmptyDocks)
-		callback(docks);
-	});
-}
-
-function bikesAvailableAtStation(id, callback)
-{
-	// The callback receives the number of bikes available for a station id
-	stationForId(id, function(station)
-	{
-		var bikes = parseInt(station.nbBikes);
-		callback(bikes);
-	});
-}
 
 /*----------Helper Functions----------*/
 
@@ -359,16 +312,6 @@ function stationForId(id, callback)
 			else if (count == stations.length) callback(null);
 			else return true;
 		});
-/*
-		for (var i = 0, length = stations.length; i < len; i++)
-		{
-			if (array[i].id == id)
-			{
-				callback(array[i]);
-				break;
-			}
-		}
-*/
 	});
 }
 
