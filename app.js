@@ -25,16 +25,20 @@ var server = app.listen(3000, function()
 
 /*----------Endpoints----------*/
 
-// Set the content type as JSON for all get requests
-app.get('/*', function(request, responce, next) 
+// Show link to Github project on landing page
+app.get('/', function(request, responce)
 {
-  responce.contentType('application/json');
-  next();
+	formattedLastRefreshDate (function(formattedDate){
+		responce.send('Please use a supported endpoint. </br></br> Documentation can be found on the <a href="http://github.com/jonathanlking/Cycle-Hire-API">Github page</a>. </br></br>'+'Live data from TFL last refreshed: ' + formattedDate);	
+	});
+	
 });
+
 app.get('/json', function(request, responce)
 {
 	cycleData(function(data)
 	{
+		responce.contentType('application/json');
 		responce.send(JSON.stringify(data));
 	});
 });
@@ -51,6 +55,7 @@ app.get('/nearest/stations', function(request, responce)
 	{
 		nearestStations(latitude, longitude, function(stations)
 		{
+			responce.contentType('application/json');
 			responce.send(stations);
 		}, number);
 	}
@@ -69,6 +74,7 @@ app.get('/nearest/bikes', function(request, responce)
 	{
 		nearestStationsWithAvailableBikes(latitude, longitude, function(stations)
 		{
+			responce.contentType('application/json');
 			responce.send(stations);
 		}, number);
 	}
@@ -87,6 +93,7 @@ app.get('/nearest/docks', function(request, responce)
 	{
 		nearestStationsWithAvailableDocks(latitude, longitude, function(stations)
 		{
+			responce.contentType('application/json');
 			responce.send(stations);
 		}, number);
 	}
@@ -105,6 +112,7 @@ app.get('/stations/within', function(request, responce)
 	{
 		stationsWithinDistance(latitude, longitude, distance, function(stations)
 		{
+			responce.contentType('application/json');
 			responce.send(stations);
 		});
 	}
@@ -122,6 +130,7 @@ app.get('/bikes/within', function(request, responce)
 	{
 		stationsWithinDistanceWithAvailableBikes(latitude, longitude, distance, function(stations)
 		{
+			responce.contentType('application/json');
 			responce.send(stations);
 		});
 	}
@@ -139,6 +148,7 @@ app.get('/docks/within', function(request, responce)
 	{
 		stationsWithinDistanceWithAvailableDocks(latitude, longitude, distance, function(stations)
 		{
+			responce.contentType('application/json');
 			responce.send(stations);
 		});
 	}
@@ -154,6 +164,7 @@ app.get('/station', function(request, responce)
 	{
 		stationForId(stationId, function(station)
 		{
+			responce.contentType('application/json');
 			if (station) responce.send(station);
 			// In case no station exists for that Id
 			else responce.send(error);
@@ -161,14 +172,6 @@ app.get('/station', function(request, responce)
 	}
 });
 
-// Show link to Github project on landing page
-app.get('/', function(request, responce)
-{
-	formattedLastRefreshDate (function(formattedDate){
-		responce.send('Please use a supported endpoint. </br></br> Documentation can be found on <a href="http://github.com/jonathanlking/Cycle-Hire-API">the project Github page</a>. </br></br>'+'Live data from TFL last refreshed: ' + formattedDate);	
-	});
-	
-});
 
 /*----------Main Functions----------*/
 
