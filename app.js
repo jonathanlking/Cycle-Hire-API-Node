@@ -19,12 +19,9 @@ var server = app.listen(3000, function()
 {
 	console.log('Server running.');
 	console.log('Listening on port %d', server.address().port);
-	// Start the XML caching process
+	// Start the XML caching process and set it to be refreshed a minutes time
 	cacheXML();
 });
-
-// Refresh the XML data and set it to be refreshed a minutes time
-cacheXML();
 
 /*----------Endpoints----------*/
 
