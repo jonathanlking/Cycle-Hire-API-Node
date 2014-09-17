@@ -154,7 +154,9 @@ app.get('/station', function(request, responce)
 	{
 		stationForId(stationId, function(station)
 		{
-			responce.send(station);
+			if (station) responce.send(station);
+			// In case no station exists for that Id
+			else responce.send(error);
 		});
 	}
 });
@@ -271,7 +273,7 @@ function nearestStationsWithAvailableDocks(latitude, longitude, callback, number
 
 function stationsWithinDistance(latitude, longitude, metres, callback, filterFunction)
 {
-	// The callback receives an ordered array (in increasing distance) of {id : distance}
+	// The callback receives an ordered array (in increasing distance) of station objects
 	if (!filterFunction) filterFunction = nearestStations;
 
 	filterFunction(latitude, longitude, function(stations)
@@ -292,17 +294,13 @@ function stationsWithinDistance(latitude, longitude, metres, callback, filterFun
 
 function stationsWithinDistanceWithAvailableBikes(latitude, longitude, metres, callback)
 {
-	// The callback receives an ordered array (in increasing distance) of {id : distance}
 	stationsWithinDistance(latitude, longitude, metres, callback, nearestStationsWithAvailableBikes);
 }
 
 function stationsWithinDistanceWithAvailableDocks(latitude, longitude, metres, callback)
 {
-	// The callback receives an ordered array (in increasing distance) of {id : distance}
 	stationsWithinDistance(latitude, longitude, metres, callback, nearestStationsWithAvailableDocks);
 }
-
-
 
 function docksAvailableAtStation(id, callback)
 {
@@ -348,8 +346,21 @@ function stationForId(id, callback)
 	// The callack takes the returned station objects id as its single parameter
 	cycleData(function(data)
 	{
-		var array = data.stations.station;
-		for (var i = 0, len = array.length; i < len; i++)
+		var stations = data.stations;
+		var count = 0;
+		stations.every(function(station) 
+		{
+			count ++;
+			if (station.id == id) 
+			{
+				callback(station);
+				return false;	
+			}
+			else if (count == stations.length) callback(null);
+			else return true;
+		});
+/*
+		for (var i = 0, length = stations.length; i < len; i++)
 		{
 			if (array[i].id == id)
 			{
@@ -357,6 +368,7 @@ function stationForId(id, callback)
 				break;
 			}
 		}
+*/
 	});
 }
 

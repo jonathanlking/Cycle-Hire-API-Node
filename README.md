@@ -91,7 +91,7 @@ e.g. `/nearest/stations/?latitude=51.535630782&longitude=-0.155715844&number=10`
 `longitude`   
 `distance` - The search radius in m.
 
-e.g. `/distance/station/?latitude=51.535630782&longitude=-0.155715844&distance=500`
+e.g. `/stations/within/?latitude=51.535630782&longitude=-0.155715844&distance=500`
 	
 **Returns array of station objects**
 
@@ -105,7 +105,7 @@ e.g. `/distance/station/?latitude=51.535630782&longitude=-0.155715844&distance=5
 
 #####Stations with *available* **bikes** within ... metres
 	
-`/stations/within/?`
+`/docks/within/?`
 
 =============================================
 
