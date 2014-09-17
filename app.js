@@ -252,22 +252,16 @@ app.get('/', function(request, responce)
 
 function nearestStations(latitude, longitude, callback, number)
 {
-
-	// The callback receives an ordered array (in increasing distance) of {id : distance}
 	cycleData(function(data)
 	{
 		var distanceArray = [];
 
-		for (var i = 0; i < data.stations.station.length; i++)
+		for (var i = 0; i < data.stations.length; i++)
 		{
 			// Iterate through all the stations
-			var station = data.stations.station[i];
-			var id = station.id[0];
-			var distance = distanceFromStation(latitude, longitude, station);
-			
-
-			var object = {stationId : id, distance : distance, latitude : station.lat[0], longitude : station.long[0], name : station.name[0], bikes : station.nbBikes[0], emptyDocks : station.nbEmptyDocks[0], docks : station.nbDocks[0]};
-			distanceArray.push(object);
+			var station = data.stations[i];
+			station.distance = distanceFromStation(latitude, longitude, station);
+			distanceArray.push(station);
 		}
 
 		var sorted = distanceArray.sort(compareDistancesOfStations);
@@ -279,26 +273,20 @@ function nearestStations(latitude, longitude, callback, number)
 
 function nearestStationsWithAvailableBikes(latitude, longitude, callback, number)
 {
-
-	// The callback receives an ordered array (in increasing distance) of {id : distance}
 	cycleData(function(data)
 	{
 		var distanceArray = [];
 
-		for (var i = 0; i < data.stations.station.length; i++)
+		for (var i = 0; i < data.stations.length; i++)
 		{
 			// Iterate through all the stations
-			var station = data.stations.station[i];
-			var id = station.id[0];
+			var station = data.stations[i];
 
 			// Ignore this station and move onto the next
-			var bikes = parseInt(station.nbBikes);
-			if (bikes <= 0) continue;
-
-			var distance = distanceFromStation(latitude, longitude, data.stations.station[i]);
-
-			var object = {stationId : id, distance : distance, latitude : station.lat[0], longitude : station.long[0], name : station.name[0], bikes : station.nbBikes[0], emptyDocks : station.nbEmptyDocks[0], docks : station.nbDocks[0]};
-			distanceArray.push(object);
+			if (station.nbBikes <= 0 || station.locked) continue;
+			
+			station.distance = distanceFromStation(latitude, longitude, station);
+			distanceArray.push(station);
 		}
 
 		var sorted = distanceArray.sort(compareDistancesOfStations);
@@ -310,26 +298,20 @@ function nearestStationsWithAvailableBikes(latitude, longitude, callback, number
 
 function nearestStationsWithAvailableDocks(latitude, longitude, callback, number)
 {
-
-	// The callback receives an ordered array (in increasing distance) of {id : distance}
 	cycleData(function(data)
 	{
 		var distanceArray = [];
 
-		for (var i = 0; i < data.stations.station.length; i++)
+		for (var i = 0; i < data.stations.length; i++)
 		{
 			// Iterate through all the stations
-			var station = data.stations.station[i];
-			var id = station.id[0];
+			var station = data.stations[i];
 
 			// Ignore this station and move onto the next
-			var docks = parseInt(station.nbEmptyDocks);
-			if (docks <= 0) continue;
-
-			var distance = distanceFromStation(latitude, longitude, data.stations.station[i]);
-
-			var object = {stationId : id, distance : distance, latitude : station.lat[0], longitude : station.long[0], name : station.name[0], bikes : station.nbBikes[0], emptyDocks : station.nbEmptyDocks[0], docks : station.nbDocks[0]};
-			distanceArray.push(object);
+			if (station.nbEmptyDocks <= 0) continue;
+			
+			station.distance = distanceFromStation(latitude, longitude, station);
+			distanceArray.push(station);
 		}
 
 		var sorted = distanceArray.sort(compareDistancesOfStations);
@@ -434,11 +416,7 @@ function formattedLastRefreshDate (callback) {
 function distanceFromStation(latitude, longitude, station)
 {
 	// Takes station object
-	var string = JSON.stringify(station);
-	var station_latitude = station.lat[0];
-	var station_longitude = station.long[0];
-	var distance = distanceBetweenCoordinates(latitude, longitude, station_latitude, station_longitude);
-	return distance;
+	return distanceBetweenCoordinates(latitude, longitude, station.lat, station.long);
 }
 
 function stationForId(id, callback)
