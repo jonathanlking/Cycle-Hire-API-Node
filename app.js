@@ -491,6 +491,38 @@ function cycleData(callback)
 				parseString(file, function(error, result)
 				{
 					loadedData = result;
+					
+					// The array of 'raw' stations
+					var _stations = loadedData.stations.station;
+					// The array of formatted stations
+					var stations = [];
+					for (var i = 0; i < _stations.length; i++)
+					{
+						// The unformatted station
+						var _station = _stations[i];
+						// The formatted station
+						var station = new Object();
+						
+						station.id = parseInt(_station.id[0])
+						station.name = _station.name[0];
+						station.terminalName = parseInt(_station.terminalName[0]);
+						station.lat = parseFloat(_station.lat[0]);
+						station.long = parseFloat(_station.long[0]);
+						station.installed = _station.installed[0] == 'true' ? true : false;
+						station.locked = _station.locked[0] == 'true' ? true : false;
+						station.installDate = parseInt(_station.installDate[0]);
+						station.temporary = _station.temporary[0] == 'true' ? true : false;
+						station.nbBikes = parseInt(_station.nbBikes[0]);
+						station.nbEmptyDocks = parseInt(_station.nbEmptyDocks[0]);
+						station.nbDocks = parseInt(_station.nbDocks[0]);
+						
+						// Add the formatted station to the array of stations
+						stations.push(station);
+					}
+					
+					var lastUpdate = loadedData.stations.$.lastUpdate
+					var data = {lastUpdate : lastUpdate, stations : stations};
+					console.log(data);
 					callback(loadedData);
 				});
 			}
